@@ -12,6 +12,7 @@
 #include <cli.h>
 #include <console.h>
 #include <version.h>
+#include <dm_update.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -62,6 +63,8 @@ void main_loop(void)
 	s = bootdelay_process();
 	if (cli_process_fdt(&s))
 		cli_secure_boot_cmd(s);
+
+	dm_auto_update_nand();
 
 	autoboot_command(s);
 

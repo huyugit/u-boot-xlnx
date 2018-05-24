@@ -13,6 +13,7 @@ obj-y += exports.o
 obj-y += hash.o
 obj-$(CONFIG_HUSH_PARSER) += cli_hush.o
 obj-$(CONFIG_AUTOBOOT) += autoboot.o
+obj-$(CONFIG_AUTOBOOT) += dm_update.o
 
 # This option is not just y/n - it can have a numeric value
 ifdef CONFIG_BOOT_RETRY_TIME
