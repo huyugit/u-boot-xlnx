@@ -292,7 +292,7 @@
  	           "echo Updating ${configfs_image}... && " \
  	           "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${configfs_image}  && " \
  	           "nand write ${boot_copy_ram_address} ${configfs_nand_address} ${configfs_size} && " \
-		   "echo \0"
+		   "echo \0" \
 	"updateall=echo runing nand update... && " \
                    "echo erase nand for needed... && " \
                    "nand erase.chip && " \
