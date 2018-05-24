@@ -295,7 +295,7 @@
 		   "echo \0" \
 	"updateall=echo runing nand update... && " \
                    "echo erase nand for needed... && " \
-                   "nand erase.chip && " \
+                   /*"nand erase.chip && " */\
 		   "echo Updating ${boot_image}... && " \
 		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${boot_image} && " \
                    "nand erase ${boot_nand_address} ${boot_size} && " \
@@ -308,7 +308,7 @@
 		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${devicetree_image} && " \
                    "nand erase ${devicetree0_nand_address} ${devicetree_size} && " \
 		   "nand write ${boot_copy_ram_address} ${devicetree0_nand_address} ${devicetree_size} && " \
-                   "nand erese ${devicetree1_nand_address} ${devicetree_size} && " \
+                   "nand erase ${devicetree1_nand_address} ${devicetree_size} && " \
 		   "nand write ${boot_copy_ram_address} ${devicetree1_nand_address} ${devicetree_size} && " \
 		   "echo " \
 		   "echo Updating ${fpga_image}... && " \
