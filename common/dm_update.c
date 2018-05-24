@@ -69,12 +69,14 @@ void dm_auto_update_nand(void)
 	
 	printf("****************** update finshed ********************** \n");
 
-	while(1)
+	while(0)
 	{
         dm_gpio_setled_green(1);
 		mdelay(500);
         dm_gpio_setled_green(0);
 		mdelay(500);
 	}
+        run_command_list("boot", -1, 0);
+
 }
 
