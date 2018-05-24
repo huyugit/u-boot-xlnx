@@ -87,8 +87,42 @@
 		   "fatload mmc ${mmc_fat_num} ${devicetree_load_address} ${devicetree_image} && " \
 		   "fatload mmc ${mmc_fat_num} ${kernel_load_address} ${kernel_image} && " \
 		   "bootm ${kernel_load_address} - ${devicetree_load_address};\0" \
-	"update=echo runing nand update huyu... && " \
-                   "echo erase all nand... && " \
+	"update=echo runing nand update... && " \
+                   "echo erase nand for needed... && " \
+		   "echo Updating ${boot_image}... && " \
+		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${boot_image} && " \
+                   "nand erase ${boot_nand_address} ${boot_size} && " \
+		   "nand write ${boot_copy_ram_address} ${boot_nand_address} ${boot_size} && " \
+		   "echo " \
+		   "echo Saving env... && " \
+		   "saveenv && " \
+		   "echo " \
+		   "echo Updating ${devicetree_image}... && " \
+		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${devicetree_image} && " \
+                   "nand erase ${devicetree0_nand_address} ${devicetree_size} && " \
+		   "nand write ${boot_copy_ram_address} ${devicetree0_nand_address} ${devicetree_size} && " \
+		   "echo " \
+		   "echo Updating ${fpga_image}... && " \
+		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${fpga_image} && " \
+		   "nand erase  ${fpga0_nand_address} ${fpga_size} && " \
+		   "nand write ${boot_copy_ram_address} ${fpga0_nand_address} ${fpga_size} && " \
+		   "echo " \
+		   "echo Updating ${kernel_image}... && " \
+		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${kernel_image} && " \
+		   "nand erase ${kernel0_nand_address} ${kernel_size} && " \
+		   "nand write ${boot_copy_ram_address} ${kernel0_nand_address} ${kernel_size} && " \
+		   "echo " \
+		   "echo Updating 0 ${rootfs_image}... && " \
+		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${rootfs_image} && " \
+		   "nand erase ${rootfs0_nand_address} ${filesize} && " \
+		   "nand write.jffs2 ${boot_copy_ram_address} ${rootfs0_nand_address} $filesize && " \
+		   "echo " \
+ 	           "echo Updating ${configfs_image}... && " \
+ 	           "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${configfs_image}  && " \
+ 	           "nand write ${boot_copy_ram_address} ${configfs_nand_address} ${configfs_size} && " \
+		   "echo \0"
+	"updateall=echo runing nand update... && " \
+                   "echo erase nand for needed... && " \
                    "nand erase.chip && " \
 		   "echo Updating ${boot_image}... && " \
 		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${boot_image} && " \
@@ -102,7 +136,7 @@
 		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${devicetree_image} && " \
                    "nand erase ${devicetree0_nand_address} ${devicetree_size} && " \
 		   "nand write ${boot_copy_ram_address} ${devicetree0_nand_address} ${devicetree_size} && " \
-                   "nand erese  ${devicetree1_nand_address} ${devicetree_size} && " \
+                   "nand erese ${devicetree1_nand_address} ${devicetree_size} && " \
 		   "nand write ${boot_copy_ram_address} ${devicetree1_nand_address} ${devicetree_size} && " \
 		   "echo " \
 		   "echo Updating ${fpga_image}... && " \
