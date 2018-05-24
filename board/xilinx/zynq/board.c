@@ -118,6 +118,7 @@ int board_late_init(void)
 int checkboard(void)
 {
 	puts("Board: Xilinx Zynq\n");
+        puts("Board: Xilinx Zynq Bitfily board  201805241107!\n");
 	return 0;
 }
 #endif

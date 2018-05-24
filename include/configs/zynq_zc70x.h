@@ -13,6 +13,20 @@
 #define CONFIG_ZYNQ_I2C0
 #define CONFIG_ZYNQ_EEPROM
 
+#define CONFIG_CMD_UBI
+#define CONFIG_RBTREE
+#define CONFIG_CMD_UBIFS
+#define CONFIG_LZO
+
+#define CONFIG_CMD_MTDPARTS
+#define CONFIG_MTD_DEVICE
+#define CONFIG_MTD_PARTITIONS
+
+#define CONFIG_SYS_MAX_FLASH_BANKS 1
+
+#define CONFIG_MTD_UBI_WL_THRESHOLD 4096
+#define CONFIG_MTD_UBI_BEB_LIMIT 0
+
 #include <configs/zynq-common.h>
 
 #endif /* __CONFIG_ZYNQ_ZC70X_H */
