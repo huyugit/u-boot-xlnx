@@ -202,7 +202,7 @@
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	"console=ttyPS0,115200\0" \
 	"mtdids=nand0=nand0\0" \
-	"mtdparts=mtdparts=nand0:0x400000@0x0(bootloader),0x400000@0x80000(env),0x480000@0x80000(dtb-main),0x500000@0x80000(dtb-alt),0x580000@0x400000(fpga-main),0x980000@0x400000(fpga-alt),0xd80000@0x500000(kernel-main),0x1280000@0x500000(kernel-alt),0x1780000@0x5d40000(rootfs-main),0x74c0000@0x5d40000(rootfs-alt),0xd200000@0xa00000(config)\0" \
+	"mtdparts=mtdparts=nand0:0x400000@0x0(bootloader),0x400000@0x80000(env),0x480000@0x80000(dtb-main),0x500000@0x80000(dtb-alt),0x580000@0x400000(fpga-main),0x980000@0x400000(fpga-alt),0xd80000@0x500000(kernel-main),0x1280000@0x500000(kernel-alt),0x1780000@0xba80000(rootfs-main),0xd200000@0xa00000(config)\0" \
 	"mmc_fat_num=0\0" \
 	"boot_copy_ram_address=0x2000000\0" \
 	"boot_image=BOOT.bin\0" \
@@ -261,7 +261,7 @@
 		   "bootm ${kernel_load_address} - ${devicetree_load_address};\0" \
 	"update=echo runing nand update... && " \
                    "echo erase all nand... && " \
-                   /*"nand erase.chip && " */\
+                   "nand erase.chip && " \
 		   "echo Updating ${boot_image}... && " \
 		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${boot_image} && " \
                    "nand erase ${boot_nand_address} ${boot_size} && " \
