@@ -114,7 +114,8 @@
 		   "echo " \
 		   "echo Updating 0 ${rootfs_image}... && " \
 		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${rootfs_image} && " \
-		   "nand erase ${rootfs0_nand_address} ${filesize} && " \
+                   "echo erase nand at ${rootfs0_nand_address},sieze ${rootfs_size}"\
+		   "nand erase ${rootfs0_nand_address} ${rootfs_size} && " \
 		   "nand write.jffs2 ${boot_copy_ram_address} ${rootfs0_nand_address} $filesize && " \
 		   "echo " \
  	           "echo Updating ${configfs_image}... && " \
@@ -155,7 +156,8 @@
 		   "echo " \
 		   "echo Updating 0 ${rootfs_image}... && " \
 		   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${rootfs_image} && " \
-		   "nand erase ${rootfs0_nand_address} ${filesize} && " \
+		   "echo erase nand at ${rootfs0_nand_address},sieze ${rootfs_size}"\
+                   "nand erase ${rootfs0_nand_address} ${rootfs_size} && " \
 		   "nand write.jffs2 ${boot_copy_ram_address} ${rootfs0_nand_address} $filesize && " \
 		   "echo " \
 		   /*"echo Updating 1 ${rootfs_image}... && " \
