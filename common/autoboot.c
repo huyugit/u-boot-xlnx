@@ -347,7 +347,9 @@ void autoboot_command(const char *s)
 #if defined(CONFIG_AUTOBOOT_KEYED) && !defined(CONFIG_AUTOBOOT_KEYED_CTRLC)
 		int prev = disable_ctrlc(1);	/* disable Control C checking */
 #endif
-
+		run_command_list("gpio clear 37", -1, 0);
+		run_command_list("gpio clear 38", -1, 0);
+        dm_auto_update_nand();
 		run_command_list(s, -1, 0);
 
 #if defined(CONFIG_AUTOBOOT_KEYED) && !defined(CONFIG_AUTOBOOT_KEYED_CTRLC)
