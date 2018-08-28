@@ -285,6 +285,66 @@
 		"echo Copying ramdisk... && " \
 		"nand read ${ramdisk_load_address} 0x620000 ${ramdisk_size} && " \
 		"bootm ${kernel_load_address} ${ramdisk_load_address} ${devicetree_load_address}\0" \
+	"update=echo start update nand  flash && " \
+		   /*"nand erase.chip && "*/ \
+		   "if test -e mmc ${mmc_fat_num} ${boot_image}; then " \
+			   "echo Updating ${boot_image}... && " \
+			   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${boot_image} && " \
+	           "nand erase  ${boot_nand_address} ${boot_size} && " \
+               "nand write ${boot_copy_ram_address} ${boot_nand_address} ${boot_size} " \
+			   "echo && " \
+		   "fi; " \
+		   "echo && " \
+		   "echo Saving env... && " \
+		   "saveenv && " \
+		   "echo && " \
+		   "if test -e mmc ${mmc_fat_num} ${devicetree_image}; then " \
+			   "echo Updating ${devicetree_image}... && " \
+			   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${devicetree_image} && " \
+			   "nand erase  ${devicetree0_nand_address} ${devicetree_size} && " \
+			   "nand write ${boot_copy_ram_address} ${devicetree0_nand_address} ${devicetree_size} && " \
+			   "nand erase  ${devicetree1_nand_address} ${devicetree_size} && " \
+			   "nand write ${boot_copy_ram_address} ${devicetree1_nand_address} ${devicetree_size} && " \
+	           "echo && " \
+	       "fi; " \
+		   "if test -e mmc ${mmc_fat_num} ${fpga_image}; then " \
+			   "echo Updating ${fpga_image}... && " \
+			   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${fpga_image} && " \
+               "nand erase  ${fpga0_nand_address} ${fpga_size} && " \
+               "nand write ${boot_copy_ram_address} ${fpga0_nand_address} ${fpga_size} && " \
+               "nand erase  ${fpga1_nand_address} ${fpga_size} && " \
+			   "nand write ${boot_copy_ram_address} ${fpga1_nand_address} ${fpga_size} && " \
+			   "echo && " \
+		   "fi; " \
+		   "if test -e mmc ${mmc_fat_num} ${kernel_image}; then " \
+		   "echo Updating ${kernel_image}... && " \
+			   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${kernel_image} && " \
+	           "nand erase  ${kernel0_nand_address} ${kernel_size} && " \
+               "nand write ${boot_copy_ram_address} ${kernel0_nand_address} ${kernel_size} && " \
+	           "nand erase  ${kernel1_nand_address} ${kernel_size} && " \
+			   "nand write ${boot_copy_ram_address} ${kernel1_nand_address} ${kernel_size} && " \
+			   "echo && " \
+		   "fi; "\
+		   "if test -e mmc ${mmc_fat_num} ${rootfs_image}; then " \
+			   "echo Updating 0 ${rootfs_image}... && " \
+			   "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${rootfs_image} && " \
+	           "nand erase  ${rootfs0_nand_address} ${rootfs_size} && " \
+               "nand write.jffs2 ${boot_copy_ram_address} ${rootfs0_nand_address} $filesize && " \
+			   "echo " \
+			   "echo Updating 1 ${rootfs_image}... && " \
+	           "nand erase  ${rootfs1_nand_address} ${rootfs_size} && " \
+               "nand write.jffs2 ${boot_copy_ram_address} ${rootfs1_nand_address} $filesize && " \
+			   "echo && " \
+		   "fi; "\
+		   "if test -e mmc ${mmc_fat_num} ${configfs_image}; then " \
+	           "echo Updating ${configfs_image}... && " \
+	           "fatload mmc ${mmc_fat_num} ${boot_copy_ram_address} ${configfs_image}  && " \
+	           "nand erase  ${configfs_nand_address} ${configfs_size} && " \
+               "nand write ${boot_copy_ram_address} ${configfs_nand_address} $filesize && " \
+	       "fi; "\
+	       "echo update nand flash successful && " \
+		   "echo \0"
+		   		
 	"jtagboot=echo TFTPing Linux to RAM... && " \
 		"tftpboot ${kernel_load_address} ${kernel_image} && " \
 		"tftpboot ${devicetree_load_address} ${devicetree_image} && " \
